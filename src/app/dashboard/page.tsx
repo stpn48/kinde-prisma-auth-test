@@ -25,19 +25,20 @@ export default async function Dashboard() {
   });
 
   return (
-    <div className="w-screen p-4 text-white bg-stone-900 font-geist-sans min-h-screen">
+    <div className="w-screen p-4 text-white bg-[#121212] font-geist-sans min-h-screen">
       <div className="flex justify-between">
         <h1 className="font-bold text-2xl">Your blogs</h1>
         <DashboardActionButtons />
       </div>
-      <div>
+      <div className="mt-10">
         {userBlogs.map((blog) => (
           <div
             key={blog.id}
-            className="flex flex-col gap-2 py-4 border border-[#222222] rounded-md"
+            className="flex px-4 flex-col gap-2 py-4 border bg-[#0e0e0e] w-[350px] border-[#222222] rounded-md"
           >
             <h1 className="font-bold text-xl">{blog.title}</h1>
             <p>{blog.content}</p>
+            <p>{blog.createdAt.toLocaleDateString()}</p>
           </div>
         ))}
       </div>
