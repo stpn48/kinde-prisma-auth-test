@@ -4,7 +4,7 @@ import prisma from "@/lib/prisma";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { revalidatePath } from "next/cache";
 
-export async function createBlog(formData: FormData){
+export async function createBlog(formData: FormData) {
   const { isAuthenticated, getUser } = getKindeServerSession();
 
   if (!isAuthenticated()) {
@@ -30,5 +30,5 @@ export async function createBlog(formData: FormData){
 
   revalidatePath("/dashboard");
 
-  return { msg: "Blog created successfully" }
+  return { msg: "Blog created successfully" };
 }
