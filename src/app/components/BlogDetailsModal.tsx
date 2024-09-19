@@ -1,12 +1,23 @@
 "use client";
 
-import React, { useCallback } from "react";
+import React, { useCallback, useState, useTransition } from "react";
 import { useModalVisibilityStore } from "../../../store/useModalVisibilityStore";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import LoadingSpinner from "./LoadingSpinner";
+import { Blog } from "@/types/global";
+import { ModalBackDrop } from "./ModalBackDrop";
+import ModalBody from "./ModalBody";
+import { Button } from "./Button";
+import { s } from "framer-motion/client";
+import EditingBlogModal from "./EditingBlogModal";
 
 export function BlogDetailsModal() {
   const { setBlogDetailsModalOpened } = useModalVisibilityStore();
+
+  const [isEditingBlog, setIsEditingBlog] = useState(false);
+
+  const [isSavingChanges, startTransition] = useTransition();
 
   const router = useRouter();
 
@@ -20,10 +31,14 @@ export function BlogDetailsModal() {
         return null;
       }
 
-      const response = await fetch(`/api/blogDetails?blogId=${blogId}`);
-      const data = await response.json();
-
-      return data;
+      try {
+        const response = await fetch(`/api/blogDetails?blogId=${blogId}`);
+        const data: Blog = await response.json();
+        return data;
+      } catch (error) {
+        console.error(error);
+        return null;
+      }
     },
   });
 
@@ -34,25 +49,52 @@ export function BlogDetailsModal() {
 
   if (isLoading) {
     return (
-      <div
-        className="w-screen h-screen flex items-center justify-center fixed inset-0 bg-stone-900 bg-opacity-50 text-white"
-      >
-        <div className="w-[90%] p-4 rounded-lg shadow-md h-[95%] modal-bg-color">
-          <h1>loading...</h1>
-        </div>
-      </div>
+      <ModalBackDrop>
+        <ModalBody className="flex items-center justify-center">
+          <LoadingSpinner />
+        </ModalBody>
+      </ModalBackDrop>
     );
   }
 
+  if (!blogDetails) {
+    return (
+      <ModalBackDrop>
+        <ModalBody>
+          <h1 className="text-red-600">
+            Error fetching data. If this issue presits please contact us.
+          </h1>
+        </ModalBody>
+      </ModalBackDrop>
+    );
+  }
+
+  if (isEditingBlog) {
+    return (
+      <EditingBlogModal
+        setBlogDetailsModalOpened={setBlogDetailsModalOpened}
+        setIsEditingBlog={setIsEditingBlog}
+        // type Blog !== Blog ???? picovina ?
+        blogDetails={blogDetails}
+      />
+    );
+  }
+
+  //static modal
   return (
-    <div
-      className="w-screen h-screen flex items-center justify-center fixed inset-0 bg-stone-900 bg-opacity-50 text-white"
-      onClick={handleModalClose}
-    >
-      <div className="w-[90%] p-4 rounded-lg shadow-md h-[95%] modal-bg-color">
-        <h1 className="text-2xl font-bold">{blogDetails.title}</h1>
+    <ModalBackDrop onClick={() => setBlogDetailsModalOpened(false)}>
+      <ModalBody className="relative">
+        <Button
+          onClick={() => setIsEditingBlog(true)}
+          className="absolute right-4 top-4"
+        >
+          Edit Blog
+        </Button>
+        <h1 className="mb-2 flex w-full justify-center text-2xl font-bold">
+          {blogDetails.title}
+        </h1>
         <p>{blogDetails.content}</p>
-      </div>
-    </div>
+      </ModalBody>
+    </ModalBackDrop>
   );
 }
