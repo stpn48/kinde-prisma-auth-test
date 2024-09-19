@@ -16,9 +16,8 @@ export async function GET(request: Request) {
   const url = new URL(request.url);
   const blogId = url.searchParams.get("blogId");
 
-
-  // TODO: remove this delay
-  await new Promise((resolve) => setTimeout(resolve, 2000));
+  // TODO: remove this
+  await new Promise((resolve) => setTimeout(resolve, 3000));
 
   const blogDetails = await prisma.blog.findUnique({
     where: {
@@ -31,12 +30,10 @@ export async function GET(request: Request) {
     return new Response("Blog not found", { status: 404 });
   }
 
-
   return new NextResponse(JSON.stringify(blogDetails), {
     status: 200,
     headers: {
       "Content-Type": "application/json",
     },
   });
-
 }
