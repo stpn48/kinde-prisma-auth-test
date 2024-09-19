@@ -20,5 +20,5 @@ export function useErrorMsg() {
     handleErrorClear();
   }, [errorMsg]);
 
-  return {errorMsg, setErrorMsg};
+  return { errorMsg, setErrorMsg };
 }
