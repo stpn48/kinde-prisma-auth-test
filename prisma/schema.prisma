@@ -17,6 +17,6 @@ model Blog {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   title     String
-  content   String?
+  content   String
   authorId  String
 }
