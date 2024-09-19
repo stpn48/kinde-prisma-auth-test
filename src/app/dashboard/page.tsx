@@ -6,6 +6,8 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 import prisma from "@/lib/prisma";
 import { DashboardActionButtons } from "@/app/dashboard/components/DashboardActionButtons";
+import { BlogCard } from "./components/BlogCard";
+import { Blog } from "@prisma/client";
 
 export default async function Dashboard() {
   const { isAuthenticated, getUser } = getKindeServerSession();
@@ -18,7 +20,7 @@ export default async function Dashboard() {
 
   const user = await getUser();
 
-  const userBlogs = await prisma.blog.findMany({
+  const userBlogs: Blog[] = await prisma.blog.findMany({
     where: {
       authorId: user.id,
     },
@@ -30,16 +32,10 @@ export default async function Dashboard() {
         <h1 className="font-bold text-2xl">Your blogs</h1>
         <DashboardActionButtons />
       </div>
-      <div className="mt-10">
+
+      <div className="mt-10 flex flex-wrap w-fit gap-2">
         {userBlogs.map((blog) => (
-          <div
-            key={blog.id}
-            className="flex px-4 flex-col gap-2 py-4 border bg-[#0e0e0e] w-[350px] border-[#222222] rounded-md"
-          >
-            <h1 className="font-bold text-xl">{blog.title}</h1>
-            <p>{blog.content}</p>
-            <p>{blog.createdAt.toLocaleDateString()}</p>
-          </div>
+          <BlogCard key={blog.id} blog={blog} />
         ))}
       </div>
 
