@@ -3,9 +3,16 @@
 import React from "react";
 import { useModalVisibilityStore } from "@/../store/useModalVisibilityStore";
 import { CreateBlogModal } from "./CreateBlogModal";
+import { BlogDetailsModal } from "./BlogDetailsModal";
 
 export function ModalVisibilityHandler() {
-  const { CreateBlogModalOpened } = useModalVisibilityStore();
+  const { createBlogModalOpened, blogDetailsModalOpened } =
+    useModalVisibilityStore();
 
-  return <>{CreateBlogModalOpened && <CreateBlogModal />}</>;
+  return (
+    <>
+      {createBlogModalOpened && <CreateBlogModal />}
+      {blogDetailsModalOpened && <BlogDetailsModal />}
+    </>
+  );
 }
