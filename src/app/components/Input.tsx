@@ -32,10 +32,10 @@ export function Input({
       value={value}
       type={type}
       className={twMerge(
-        "w-full text-sm rounded-md border border-[#242424] bg-[#0f0f0f] px-2 py-1 text-white",
+        "w-full rounded-md border border-[#242424] bg-[#0f0f0f] px-2 py-1 text-sm text-white",
         className,
         disabled && "cursor-not-allowed",
-        disabled && "bg-opacity-45"
+        disabled && "bg-opacity-45",
       )}
       required={required}
       disabled={disabled}
