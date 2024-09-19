@@ -20,10 +20,10 @@ export function Button({
   return (
     <button
       className={twMerge(
-        "bg-white rounded-sm px-2 py-1 text-sm hover:bg-[#f0f0f0]",
+        "rounded-sm bg-white px-2 py-1 text-sm text-black hover:bg-[#f0f0f0]",
         className,
         disabled && "cursor-not-allowed",
-        disabled && "bg-opacity-45"
+        disabled && "bg-opacity-45",
       )}
       onClick={onClick}
       disabled={disabled}
