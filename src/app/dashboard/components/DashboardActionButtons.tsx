@@ -6,14 +6,13 @@ import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { Button } from "@/app/components/Button";
 
 export function DashboardActionButtons() {
-  const { CreateBlogModalOpened, setCreateBlogModalOpened } =
+  const { createBlogModalOpened, setCreateBlogModalOpened } =
     useModalVisibilityStore();
 
   const { getPermissions } = useKindeBrowserClient();
 
   const { permissions: usersPermissions } = getPermissions();
-  console.log(usersPermissions);
-
+      
   const buttons = [
     {
       label: "Admin dashboard",
