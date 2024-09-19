@@ -1,11 +1,18 @@
 import { create } from "zustand";
 
 type Store = {
-  CreateBlogModalOpened: boolean;
+  createBlogModalOpened: boolean;
   setCreateBlogModalOpened: (val: boolean) => void;
+
+  blogDetailsModalOpened: boolean;
+  setBlogDetailsModalOpened: (val: boolean) => void;
 };
 export const useModalVisibilityStore = create<Store>((set) => ({
-  CreateBlogModalOpened: false,
+  createBlogModalOpened: false,
   setCreateBlogModalOpened: (val: boolean) =>
-    set({ CreateBlogModalOpened: val }),
+    set({ createBlogModalOpened: val }),
+
+  blogDetailsModalOpened: false,
+  setBlogDetailsModalOpened: (val: boolean) =>
+    set({ blogDetailsModalOpened: val }),
 }));
