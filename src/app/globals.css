@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.modal-bg-color {
+    background-color: #0e0e0e;
+}
+
+.modal-border-color {
+    border-color: #222222;
+}
