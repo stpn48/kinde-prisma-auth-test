@@ -4,8 +4,8 @@ import prisma from "@/lib/prisma";
 import { DashboardActionButtons } from "@/app/dashboard/components/DashboardActionButtons";
 import { BlogCard } from "./components/BlogCard";
 import { Blog } from "@prisma/client";
-import { BlogDetailsModal } from "../components/BlogDetailsModal/BlogDetailsModal";
-import { CreateBlogModal } from "../components/CreateBlogModal";
+import { BlogDetailsModal } from "./components/BlogDetailsModal/BlogDetailsModal";
+import { CreateBlogModal } from "./components/CreateBlogModal";
 
 export default async function Dashboard({ searchParams }: { searchParams: { blogId?: string } }) {
   const { isAuthenticated, getUser } = getKindeServerSession();
