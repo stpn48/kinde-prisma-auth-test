@@ -6,13 +6,12 @@ import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { Button } from "@/app/components/Button";
 
 export function DashboardActionButtons() {
-  const { createBlogModalOpened, setCreateBlogModalOpened } =
-    useModalVisibilityStore();
+  const { setCreateBlogModalOpened } = useModalVisibilityStore();
 
   const { getPermissions } = useKindeBrowserClient();
 
   const { permissions: usersPermissions } = getPermissions();
-      
+
   const buttons = [
     {
       label: "Admin dashboard",
@@ -33,20 +32,12 @@ export function DashboardActionButtons() {
   return (
     <div className="flex gap-2 text-sm">
       {buttons.map((button) => {
-        if (
-          !usersPermissions ||
-          !button.requiredPermissions.every((permission) =>
-            usersPermissions.includes(permission)
-          )
-        ) {
+        if (!usersPermissions || !button.requiredPermissions.every((permission) => usersPermissions.includes(permission))) {
           return;
         }
 
         return (
-          <Button
-            className="bg-white text-black px-2 py-1 rounded-sm"
-            onClick={button.onClick}
-          >
+          <Button className="rounded-sm bg-white px-2 py-1 text-black" onClick={button.onClick}>
             {button.label}
           </Button>
         );

@@ -26,9 +26,9 @@ export function BlogCard({ blog }: Props) {
     <div
       key={blog.id}
       onClick={handleCardClick}
-      className="flex px-4 flex-col gap-2 py-4 border modal-bg-color w-[350px] modal-border-color rounded-md"
+      className="modal-bg-color modal-border-color flex w-[350px] flex-col gap-2 rounded-md border px-4 py-4"
     >
-      <h1 className="font-bold text-xl">{blog.title}</h1>
+      <h1 className="text-xl font-bold">{blog.title}</h1>
       <p>{blog.content}</p>
       <p>{blog.createdAt.toLocaleDateString()}</p>
     </div>

@@ -16,9 +16,6 @@ export async function GET(request: Request) {
   const url = new URL(request.url);
   const blogId = url.searchParams.get("blogId");
 
-  // TODO: remove this
-  await new Promise((resolve) => setTimeout(resolve, 3000));
-
   const blogDetails = await prisma.blog.findUnique({
     where: {
       id: blogId,

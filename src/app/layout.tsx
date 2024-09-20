@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { ReactQueryClientProvider } from "./components/ReactQueryClientProvider";
-import { CreateBlogModal } from "./components/CreateBlogModal/CreateBlogModal";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,10 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <ReactQueryClientProvider>
-          {children}
-          <CreateBlogModal />
-        </ReactQueryClientProvider>
+        <ReactQueryClientProvider>{children}</ReactQueryClientProvider>
       </body>
     </html>
   );
