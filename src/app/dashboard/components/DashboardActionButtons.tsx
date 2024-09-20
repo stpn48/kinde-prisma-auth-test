@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useModalVisibilityStore } from "../../../../store/useModalVisibilityStore";
+import { useModalVisibilityStore } from "@/store/useModalVisibilityStore";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { Button } from "@/app/components/Button";
 
