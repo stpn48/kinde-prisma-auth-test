@@ -2,7 +2,7 @@
 
 import { Blog } from "@prisma/client";
 import React, { useCallback } from "react";
-import { useModalVisibilityStore } from "../../../../store/useModalVisibilityStore";
+import { useModalVisibilityStore } from "@/store/useModalVisibilityStore";
 
 import { useRouter } from "next/navigation";
 
