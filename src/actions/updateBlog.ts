@@ -5,7 +5,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { revalidatePath } from "next/cache";
 
 export async function updateBlog(formData: FormData, blogId: string, authorId: string) {
-  const { isAuthenticated, getUser } = getKindeServerSession();
+  const { isAuthenticated, getUser, getPermissions } = getKindeServerSession();
 
   const isLoggedIn = await isAuthenticated();
 
@@ -13,9 +13,12 @@ export async function updateBlog(formData: FormData, blogId: string, authorId: s
     throw new Error("Unauthorized");
   }
 
+  const kindePermissions = await getPermissions();
+  const isAdmin = kindePermissions?.permissions?.includes("remove:blog");
+
   const user = await getUser();
 
-  if (user.id !== authorId) {
+  if (!isAdmin && user.id !== authorId) {
     throw new Error("Unauthorized");
   }
 
