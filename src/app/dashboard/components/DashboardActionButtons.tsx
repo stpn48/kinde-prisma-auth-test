@@ -1,14 +1,13 @@
 "use client";
 
 import React from "react";
-import { useModalVisibilityStore } from "@/store/useModalVisibilityStore";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { Button } from "@/app/components/Button";
+import { useRouter } from "next/navigation";
 
 export function DashboardActionButtons() {
-  const { setCreateBlogModalOpened } = useModalVisibilityStore();
-
   const { getPermissions } = useKindeBrowserClient();
+  const router = useRouter();
 
   const { permissions: usersPermissions } = getPermissions();
 
@@ -16,16 +15,16 @@ export function DashboardActionButtons() {
     {
       label: "Admin dashboard",
       onClick: () => {
-        console.log("Admin dashboard");
+        router.push("/admin-dashboard");
       },
       requiredPermissions: ["remove:blog"],
     },
     {
       label: "Create new blog",
       onClick: () => {
-        setCreateBlogModalOpened(true);
+        router.push("/dashboard?creatingBlog=true");
       },
-      requiredPermissions: ["create:blog"],
+      requiredPermissions: ["create:blog", "edit:blog"],
     },
   ];
 
